@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 
-# Gerrit is assumed to be accessible via the charmgit ssh alias and be set as the "origin" remote
-# Github is assumed to be set as the "github" remote
+# Gerrit is assumed to be accessible via the charmgit ssh alias and be set as the "gerrit" remote
+# Github is assumed to be set as the "origin" remote
 # Should be run somewhere inside the project folder (so the git commands work)
 
 import sys
@@ -67,6 +67,6 @@ for change in changes:
                                                    "change:%s" % change['number'])
     changeInfo = parseGerritChangesJSON(output)
     print branchName, changeInfo[0]["currentPatchSet"]["ref"]
-    run_command_status("git", "fetch", "origin", changeInfo[0]["currentPatchSet"]["ref"])
+    run_command_status("git", "fetch", "gerrit", changeInfo[0]["currentPatchSet"]["ref"])
     run_command_status("git", "checkout", "-b", branchName, "FETCH_HEAD")
-    run_command_status("git", "push", "github", branchName)
+    run_command_status("git", "push", "origin", branchName)
